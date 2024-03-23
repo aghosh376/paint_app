@@ -4,6 +4,7 @@
 #include <GL/freeglut.h>
 #include "AppController.h"
 #include "ColorSelector.h"
+#include "ColorPicker.h"
 #include "Toolbar.h"
 #include "Canvas.h"
 
@@ -11,6 +12,7 @@ struct Controller : public AppController {
     Toolbar toolbar;
     Canvas canvas;
     ColorSelector colorSelector;
+    ColorPicker colorPicker;
 
     Controller(){
         //
@@ -20,9 +22,9 @@ struct Controller : public AppController {
         if (toolbar.contains(x, y)){
             toolbar.handleMouseClick(x, y);
         } else if (canvas.contains(x, y)){
-            canvas.handleMouseClick(x, y, toolbar.getSelectedTool(), colorSelector.getCurrentColor());
-        } else if (colorSelector.contains(x, y)){
-            colorSelector.handleMouseClick(x, y);
+            canvas.handleMouseClick(x, y, toolbar.getSelectedTool(), colorPicker.getCurrentColor());
+        } else if (colorPicker.contains(x, y)){
+            colorPicker.handleMouseClick(x, y);
         }
     }
 
@@ -37,7 +39,8 @@ struct Controller : public AppController {
     void render(){
         canvas.draw();
         toolbar.draw();
-        colorSelector.draw();
+        //colorSelector.draw();
+        colorPicker.draw();
     }
 };
 

@@ -4,6 +4,7 @@
 #include "Rectangle.h"
 #include "Toolbar.h"
 #include "Point.h"
+#include "Shape.h"
 
 struct Canvas {
 private:
@@ -12,10 +13,14 @@ private:
     Point points[10000];
     int pCounter;
 
+    Shape shapes[1000];
+    int shapeCounter;
+
 public:
     Canvas(){
         area = Rectangle(-0.8f, 1.0f, 1.8f, 1.8f, Color(1.0f, 1.0f, 1.0f));
         pCounter = 0;
+        shapeCounter = 0;
     }
 
     void draw(){
