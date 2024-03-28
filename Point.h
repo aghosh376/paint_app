@@ -40,6 +40,37 @@ public:
             glVertex2f(x, y);
         glEnd();
     }
+
+    float getX(){
+        return x;
+    }
+    float getY(){
+        return y;
+    }
+
+    Color getColor(){
+        return color;
+    }
+
+    int getThickness(){
+        return thickness;
+    }
+
+    void setX(float x){
+        this->x = x;
+    }
+
+    void setY(float y){
+        this->y = y;
+    }
+
+    void setColor(Color color){
+        this->color = color;
+    }
+
+    void setThickness(int thickness){
+        this->thickness = thickness;
+    }
 };
 
 
