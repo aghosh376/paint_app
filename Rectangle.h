@@ -3,9 +3,10 @@
 
 #include <GL/freeglut.h>
 #include "Color.h"
+#include "Shape.h"
 
-struct Rectangle {
-private:
+class Rectangle : public Shape {
+
     float x;
     float y;
     float w;
@@ -41,6 +42,22 @@ public:
 
     void deselect() {
         selected = false;
+    }
+
+     void setW(float w){
+        this->w = w;
+    }
+
+    void setH(float h){
+        this->h = h;
+    }
+
+    float getW(){
+        return w;
+    }
+
+    float getH(){
+        return h;
     }
 
     void draw() {

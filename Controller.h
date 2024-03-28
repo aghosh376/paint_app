@@ -30,10 +30,20 @@ struct Controller : public AppController {
 
     void mouseMotion( float x, float y ) {
         if (canvas.contains(x, y)){
-            if (toolbar.getSelectedTool() == PENCIL || toolbar.getSelectedTool() == ERASER){
-                canvas.handleMouseClick(x, y, toolbar.getSelectedTool(), colorSelector.getCurrentColor());
-            }
+            //if (toolbar.getSelectedTool() == PENCIL || toolbar.getSelectedTool() == ERASER){
+                //canvas.handleMouseClick(x, y, toolbar.getSelectedTool(), colorSelector.getCurrentColor());
+                canvas.handleMouseDrag(x, y, toolbar.getSelectedTool(), colorPicker.getCurrentColor());
+            //}
         }
+        if (colorPicker.contains(x, y)) {
+            colorPicker.handleMouseDrag(x, y);
+        }
+    }
+
+    void leftMouseUp(float x, float y) {
+        
+        colorPicker.handleMouseUp(x, y);
+        //canvas.handleMouseUp(x, y, toolbar.getSelectedTool(), colorPicker.getCurrentColor());
     }
 
     void render(){

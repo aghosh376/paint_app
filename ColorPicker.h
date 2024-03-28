@@ -87,7 +87,18 @@ public:
     }
 
     void handleMouseDrag(float x, float y) {
-        
+        if (redSlider.getSelected() && redBar.contains(x-0.02, y)) {
+            redSlider.setX(x - offsetX);
+        } else if (greenSlider.getSelected() && greenBar.contains(x-0.02, y)){
+            greenSlider.setX(x - offsetX);
+        } else if (blueSlider.getSelected() && blueBar.contains(x-0.02, y)) {
+            blueSlider.setX(x - offsetX);
+        }
+        setPreviewColor();
+    }
+
+    void handleMouseUp(float x, float y) {
+        deselectAll();
     }
 
     bool contains(float x, float y){

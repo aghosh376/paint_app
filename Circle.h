@@ -63,6 +63,10 @@ public:
         selected = true;
     }
 
+    bool getSelected() {
+        return selected;
+    }
+
     void setX(float x){
         this->x = x;
     }

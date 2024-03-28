@@ -13,7 +13,7 @@ private:
     Point points[10000];
     int pCounter;
 
-    Shape shapes[1000];
+    Shape* shapes[1000];
     int shapeCounter;
 
 public:
@@ -29,6 +29,10 @@ public:
         for (int i = 0; i < pCounter; i++){
             points[i].draw();
         }
+
+        for (int i = 0; i < shapeCounter; i++){
+            shapes[i]->draw();
+        }
     }
 
     void handleMouseClick(float x, float y, Tool tool, Color color){
@@ -40,6 +44,24 @@ public:
             points[pCounter] = Point(x, y, Color(1.0f, 1.0f, 1.0f), 20.0f);
             pCounter++;
         }
+    }
+
+    void handleMouseDrag(float x, float y, Tool selectedTool, Color color){
+        if (selectedTool == PENCIL){
+            points[pCounter] = Point(x, y, color);
+            pCounter++;
+            //scribbles[scribbleCounter-1].addPoint(x, y, color);
+        }
+        else if (selectedTool == ERASER){
+            points[pCounter] = Point(x, y, Color(1,1,1), 20);
+            pCounter++;
+        } /*else if (selectedTool == MOUSE){
+            if (selectedSquare != -1){
+                squares[selectedSquare].setX(x - offsetX);
+                squares[selectedSquare].setY(y + offsetY);
+            }
+        } */
+
     }
 
     bool contains(float x, float y){
