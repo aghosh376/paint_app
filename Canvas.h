@@ -1,12 +1,13 @@
 #ifndef CANVAS_H
 #define CANVAS_H
 
-#include "Rectangle.h"
+//#include "Rectangle.h"
 #include "Toolbar.h"
 #include "Point.h"
 #include "Shape.h"
 #include "Scribble.h"
 #include "Triangle.h"
+//#include "Circle.h"
 
 struct Canvas {
 private:
@@ -26,7 +27,6 @@ public:
     Canvas(){
         area = Rectangle(-0.8f, 1.0f, 1.8f, 1.8f, Color(1.0f, 1.0f, 1.0f));
         pCounter = 0;
-        shapeCounter = 0;
         shapeCounter = 0;
         selectedShape = -1;
         offsetX = 0;
@@ -49,6 +49,7 @@ public:
         if (tool == PENCIL){
             //points[pCounter] = Point(x, y, color);
             //pCounter++;
+
         }
         else if (tool == ERASER){
             //points[pCounter] = Point(x, y, Color(1.0f, 1.0f, 1.0f), 20.0f);
@@ -57,7 +58,7 @@ public:
             shapes[shapeCounter] = new Rectangle(x, y, 0.3, 0.3, color);
             shapeCounter++;
         } else if (tool == CIRCLE) {
-            shapes[shapeCounter] = new Circle(x, y, 0.3, color);
+            shapes[shapeCounter] = new Circle(x, y, 0.15, color);
             shapeCounter++;
         } else if (tool == TRIANGLE) {
             shapes[shapeCounter] = new Triangle(x, y, 0.3, color);
@@ -88,6 +89,8 @@ public:
     bool contains(float x, float y){
         return area.contains(x, y);
     }
+
+   
 };
 
 #endif

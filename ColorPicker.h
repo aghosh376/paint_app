@@ -42,7 +42,7 @@ public:
         greenBar = Rectangle(-0.75f, -0.875f, 1.5f, 0.025f, Color(0.9f, 0.9f, 0.9f));
         blueBar = Rectangle(-0.75f, -0.925f, 1.5f, 0.025f, Color(0.9f, 0.9f, 0.9f));
 
-        redSlider = Circle(-0.72f, -0.8375f, 0.02, Color(1,0,0));
+        redSlider = Circle(1.45-0.72f, -0.8375f, 0.02, Color(1,0,0));
         greenSlider = Circle(-0.72f, -0.8875f, 0.02, Color(0,1,0));
         blueSlider = Circle(-0.72f, -0.9375f, 0.02, Color(0,0,1));
     }

@@ -6,8 +6,9 @@
 #include "Color.h"
 #include "Shape.h"
 
-class Triangle : public Shape {
-    
+class Triangle : public Shape{
+private:
+
     float x;
     float y;
     float w;
@@ -15,7 +16,7 @@ class Triangle : public Shape {
     Color color;
     bool selected;
 
-    public:
+public:
 
     Triangle() {
         x = 0.0f;
@@ -49,11 +50,7 @@ class Triangle : public Shape {
      void setW(float w){
         this->w = w;
     }
-
-    void setH(float h){
-        this->h = h;
-    }
-
+    
     float getW(){
         return w;
     }

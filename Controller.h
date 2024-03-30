@@ -25,6 +25,7 @@ struct Controller : public AppController {
             canvas.handleMouseClick(x, y, toolbar.getSelectedTool(), colorPicker.getCurrentColor());
         } else if (colorPicker.contains(x, y)){
             colorPicker.handleMouseClick(x, y);
+            
         }
     }
 
