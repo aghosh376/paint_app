@@ -6,6 +6,7 @@
 #include "Point.h"
 #include "Shape.h"
 #include "Scribble.h"
+#include "Triangle.h"
 
 struct Canvas {
 private:
@@ -53,11 +54,14 @@ public:
             //points[pCounter] = Point(x, y, Color(1.0f, 1.0f, 1.0f), 20.0f);
             //pCounter++;
         } else if (tool == SQUARE) {
-
+            shapes[shapeCounter] = new Rectangle(x, y, 0.3, 0.3, color);
+            shapeCounter++;
         } else if (tool == CIRCLE) {
-            
+            shapes[shapeCounter] = new Circle(x, y, 0.3, color);
+            shapeCounter++;
         } else if (tool == TRIANGLE) {
-            
+            shapes[shapeCounter] = new Triangle(x, y, 0.3, color);
+            shapeCounter++;
         }
     }
 

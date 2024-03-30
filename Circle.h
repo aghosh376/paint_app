@@ -4,8 +4,9 @@
 #include <cmath>
 #include <GL/freeglut.h>
 #include "Color.h"
+#include "Shape.h"
 
-struct Circle {
+class Circle : public Shape {
 private:
     float x;
     float y;
@@ -80,6 +81,10 @@ public:
     }
     float getY(){
         return y;
+    }
+
+    void setColor(Color color) {
+        this->color = color;
     }
 };
 
