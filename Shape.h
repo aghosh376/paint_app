@@ -14,31 +14,33 @@ public:
     virtual bool contains(float, float) = 0;
     virtual void setColor(Color) = 0;
 
-    void select(){
+    virtual void addPoint(float x, float y, Color color) {}
+
+    virtual void select(){
         selected = true;
     }
 
-    void deselect(){
+    virtual void deselect(){
         selected = false;
     }
 
-    bool isSelected(){
+    virtual bool isSelected(){
         return selected;
     }
 
-    void setX(float x){
+    virtual void setX(float x){
         this->x = x;
     }
 
-    void setY(float y){
+    virtual void setY(float y){
         this->y = y;
     }
 
-    float getX(){
+    virtual float getX(){
         return x;
     }
 
-    float getY(){
+    virtual float getY(){
         return y;
     }
 

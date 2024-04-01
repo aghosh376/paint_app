@@ -1,13 +1,14 @@
 #ifndef CANVAS_H
 #define CANVAS_H
 
-//#include "Rectangle.h"
+#include "Rectangle.h"
 #include "Toolbar.h"
 #include "Point.h"
 #include "Shape.h"
 #include "Scribble.h"
 #include "Triangle.h"
-//#include "Circle.h"
+#include "Circle.h"
+#include "Hexagon.h"
 
 struct Canvas {
 private:
@@ -49,11 +50,36 @@ public:
         if (tool == PENCIL){
             //points[pCounter] = Point(x, y, color);
             //pCounter++;
-
+            shapes[shapeCounter] = new Scribble();
+            shapeCounter++;
         }
         else if (tool == ERASER){
             //points[pCounter] = Point(x, y, Color(1.0f, 1.0f, 1.0f), 20.0f);
             //pCounter++;
+            for (int i = 0; i < shapeCounter; i++) {
+                if (shapes[i]->contains(x, y)) {
+                    for(int j = i; j < shapeCounter - 1; j++) {
+                        shapes[j] = shapes[j+1];
+                    }
+                    shapeCounter--;
+                }
+            }
+        } else if (tool == MOUSE){
+            for (int i = 0; i < shapeCounter; i++){
+                shapes[i]->deselect();
+                std::cout << "deselect" << std::endl;
+            }
+            selectedShape = -1;
+            for (int i = shapeCounter-1; i >= 0; i--){
+                if (shapes[i]->contains(x, y)){
+                    std::cout << "select" << std::endl;
+                    shapes[i]->select();
+                    selectedShape = i;
+                    offsetX = x - shapes[i]->getX();
+                    offsetY = shapes[i]->getY() - y;
+                    break;
+                }
+            }
         } else if (tool == SQUARE) {
             shapes[shapeCounter] = new Rectangle(x, y, 0.3, 0.3, color);
             shapeCounter++;
@@ -63,6 +89,11 @@ public:
         } else if (tool == TRIANGLE) {
             shapes[shapeCounter] = new Triangle(x, y, 0.3, color);
             shapeCounter++;
+        } else if (tool == HEXAGON) {
+            shapes[shapeCounter] = new Hexagon(x, y, 0.15, color);
+            shapeCounter++;
+        } else if (tool == CLEAR) {
+            clearShapeCounter();
         }
     }
 
@@ -71,17 +102,23 @@ public:
             //points[pCounter] = Point(x, y, color);
             //pCounter++;
             //scribbles[scribbleCounter-1].addPoint(x, y, color);
+            shapes[shapeCounter-1]->addPoint(x, y, color);
         }
         else if (selectedTool == ERASER){
             //points[pCounter] = Point(x, y, Color(1,1,1), 20);
             //pCounter++;
+            
         } /*else if (selectedTool == MOUSE){
             if (selectedSquare != -1){
                 squares[selectedSquare].setX(x - offsetX);
                 squares[selectedSquare].setY(y + offsetY);
             }
         } */else if (selectedTool == MOUSE) {
-
+            if (selectedShape != -1) {
+                shapes[selectedShape]->setX(x - offsetX);
+                shapes[selectedShape]->setY(y + offsetY);
+                std::cout << "move" << std::endl;
+            }
         }
 
     }
@@ -90,7 +127,19 @@ public:
         return area.contains(x, y);
     }
 
-   
+    int getSelectedShape() {
+        return selectedShape;
+    }
+
+    void updateSelectedShape(Color color) {
+        if (selectedShape != -1 && selectedShape < shapeCounter) {
+            shapes[selectedShape]->setColor(color);
+        }
+    }
+
+    void clearShapeCounter(){
+        shapeCounter = 0;
+    }
 };
 
 #endif

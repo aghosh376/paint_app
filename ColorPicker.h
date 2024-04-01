@@ -121,6 +121,10 @@ public:
     Color getCurrentColor() {
         return currentColor;
     }
+
+    Color getPreviewColor() {
+        return previewColor;
+    }
 };
 
 

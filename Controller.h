@@ -21,20 +21,23 @@ struct Controller : public AppController {
     void leftMouseDown( float x, float y ){
         if (toolbar.contains(x, y)){
             toolbar.handleMouseClick(x, y);
+            if (toolbar.getSelectedTool() == CLEAR){
+                canvas.clearShapeCounter();
+            }
         } else if (canvas.contains(x, y)){
             canvas.handleMouseClick(x, y, toolbar.getSelectedTool(), colorPicker.getCurrentColor());
         } else if (colorPicker.contains(x, y)){
             colorPicker.handleMouseClick(x, y);
+            if (canvas.getSelectedShape() != -1) {
+                canvas.updateSelectedShape(colorPicker.getCurrentColor());
+            }
             
         }
     }
 
     void mouseMotion( float x, float y ) {
         if (canvas.contains(x, y)){
-            //if (toolbar.getSelectedTool() == PENCIL || toolbar.getSelectedTool() == ERASER){
-                //canvas.handleMouseClick(x, y, toolbar.getSelectedTool(), colorSelector.getCurrentColor());
                 canvas.handleMouseDrag(x, y, toolbar.getSelectedTool(), colorPicker.getCurrentColor());
-            //}
         }
         if (colorPicker.contains(x, y)) {
             colorPicker.handleMouseDrag(x, y);

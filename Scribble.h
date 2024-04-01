@@ -15,6 +15,8 @@ class Scribble : public Shape{
     float top;
     float bottom;
 
+    Color color;
+
 
 public:
     Scribble(){
@@ -35,7 +37,11 @@ public:
         this->y = y;
     }
 
-    void addPoint(float x, float y, Color color){
+    void setColor(Color color) {
+        this->color = color;
+    }
+
+    void addPoint(float x, float y, Color color) {
         if (pCounter == 0){
             this->x = x;
             this->y = y;

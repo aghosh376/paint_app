@@ -4,7 +4,7 @@
 #include "Rectangle.h"
 #include "Texture.h"
 
-enum Tool {PENCIL, ERASER, MOUSE, SQUARE, CIRCLE, TRIANGLE};
+enum Tool {PENCIL, ERASER, MOUSE, SQUARE, CIRCLE, TRIANGLE, HEXAGON, CLEAR};
 
 struct Toolbar {
 private:
@@ -13,9 +13,13 @@ private:
     Texture mouseButton;
     Texture pencilButton;
     Texture eraserButton;
+
     Texture squareButton;
     Texture circleButton;
     Texture triangleButton;
+    Texture hexagonButton;
+
+    Texture clearButton;
 
     Tool selectedTool;
 
@@ -26,6 +30,8 @@ private:
         squareButton.deselect();
         circleButton.deselect();
         triangleButton.deselect();
+        hexagonButton.deselect();
+        clearButton.deselect();
     }
 
 public:
@@ -38,6 +44,8 @@ public:
         squareButton = Texture("assets/square.png", -1.0f, 0.4f, 0.2f, 0.2f);
         circleButton = Texture("assets/circle.png", -1.0f, 0.2f, 0.2f, 0.2f);
         triangleButton = Texture("assets/triangle.png", -1.0f, 0, 0.2f, 0.2f);
+        hexagonButton = Texture("assets/hexagon.png", -1.0f, -0.2f, 0.2f, 0.2f);
+        clearButton = Texture("assets/trash.png", -1.0f, -0.8f, 0.2f, 0.2f);
 
         selectPencil();
     }
@@ -82,6 +90,18 @@ public:
         selectedTool = TRIANGLE;
     }
 
+    void selectHexagon() {
+        deselectAll();
+        hexagonButton.select();
+        selectedTool = HEXAGON;
+    }
+
+    void selectClear() {
+        deselectAll();
+        clearButton.select();
+        selectedTool = CLEAR;
+    }
+
     void handleMouseClick(float x, float y){
         if (pencilButton.contains(x, y)){
             selectPencil();
@@ -95,7 +115,11 @@ public:
             selectCircle();
         } else if (triangleButton.contains(x, y)){
             selectTriangle();
-        } 
+        } else if (hexagonButton.contains(x, y)){
+            selectHexagon();
+        } else if (clearButton.contains(x, y)) {
+            selectClear();
+        }
     }
 
     void draw(){
@@ -106,6 +130,8 @@ public:
         squareButton.draw();
         circleButton.draw();
         triangleButton.draw();
+        hexagonButton.draw();
+        clearButton.draw();
     }
 
     bool contains(float x, float y){
