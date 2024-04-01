@@ -73,10 +73,15 @@ public:
             for (int i = shapeCounter-1; i >= 0; i--){
                 if (shapes[i]->contains(x, y)){
                     std::cout << "select" << std::endl;
-                    shapes[i]->select();
-                    selectedShape = i;
-                    offsetX = x - shapes[i]->getX();
-                    offsetY = shapes[i]->getY() - y;
+                    Shape* temp = shapes[i];
+                    for(int j = i; j < shapeCounter - 1; j++) {
+                        shapes[j] = shapes[j+1];
+                    }
+                    shapes[shapeCounter-1] = temp;
+                    shapes[shapeCounter-1]->select();
+                    selectedShape = shapeCounter-1;
+                    offsetX = x - shapes[selectedShape]->getX();
+                    offsetY = shapes[selectedShape]->getY() - y;
                     break;
                 }
             }
