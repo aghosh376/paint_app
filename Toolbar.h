@@ -4,7 +4,7 @@
 #include "Rectangle.h"
 #include "Texture.h"
 
-enum Tool {PENCIL, ERASER, MOUSE, SQUARE, CIRCLE, TRIANGLE, HEXAGON, CLEAR};
+enum Tool {PENCIL, ERASER, MOUSE, SQUARE, CIRCLE, TRIANGLE, HEXAGON, CLEAR, FRONT, BACK};
 
 struct Toolbar {
 private:
@@ -19,9 +19,15 @@ private:
     Texture triangleButton;
     Texture hexagonButton;
 
+    Texture frontButton;
+    Texture backButton;
+
     Texture clearButton;
 
     Tool selectedTool;
+
+    bool sendBack;
+    bool sendFront;
 
     void deselectAll(){
         mouseButton.deselect();
@@ -32,6 +38,8 @@ private:
         triangleButton.deselect();
         hexagonButton.deselect();
         clearButton.deselect();
+        frontButton.deselect();
+        backButton.deselect();
     }
 
 public:
@@ -46,8 +54,13 @@ public:
         triangleButton = Texture("assets/triangle.png", -1.0f, 0, 0.2f, 0.2f);
         hexagonButton = Texture("assets/hexagon.png", -1.0f, -0.2f, 0.2f, 0.2f);
         clearButton = Texture("assets/trash.png", -1.0f, -0.8f, 0.2f, 0.2f);
+        frontButton = Texture("assets/up_arrow.png", -1.0f, -0.4f, 0.2f, 0.2f);
+        backButton = Texture("assets/down_arrow.png", -1.0f, -0.6f, 0.2f, 0.2f);
 
         selectPencil();
+
+        sendBack = false;
+        sendFront = false;
     }
 
     Tool getSelectedTool(){
@@ -102,6 +115,43 @@ public:
         selectedTool = CLEAR;
     }
 
+    void selectFront() {
+        frontButton.select();
+        sendFront = true;
+        sendBack = false;
+    }
+
+    void deselectFront() {
+        frontButton.deselect();
+    }
+
+    void deselectSendFront() {
+        sendFront = false;
+    }
+
+    void selectBack() {
+        backButton.select();
+        sendBack = true;
+        sendFront = false;
+    }
+
+    void deselectBack() {
+        backButton.deselect();
+    }
+
+    void deselectSendBack() {
+        sendBack = false;
+    }
+
+    bool getSendFront() {
+        return sendFront;
+    }
+
+    bool getSendBack() {
+        return sendBack;
+    }
+    
+
     void handleMouseClick(float x, float y){
         if (pencilButton.contains(x, y)){
             selectPencil();
@@ -119,7 +169,18 @@ public:
             selectHexagon();
         } else if (clearButton.contains(x, y)) {
             selectClear();
+        } else if (frontButton.contains(x, y)) {
+            selectFront();
+            deselectBack();
+        } else if (backButton.contains(x, y)) {
+            selectBack();
+            deselectFront();
         }
+    }
+
+    void handleMouseUp() {
+        deselectFront();
+        deselectBack();
     }
 
     void draw(){
@@ -132,6 +193,10 @@ public:
         triangleButton.draw();
         hexagonButton.draw();
         clearButton.draw();
+        if (selectedTool == MOUSE) {
+            frontButton.draw();
+            backButton.draw();
+        }
     }
 
     bool contains(float x, float y){

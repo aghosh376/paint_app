@@ -59,6 +59,22 @@ public:
         return h;
     }
 
+    float getX(){
+        return x;
+    }
+
+    float getY(){
+        return y;
+    }
+
+    void setX(float x){
+        this->x = x;
+    }
+
+    void setY(float y){
+        this->y = y;
+    }
+
     void draw() {
         glColor3f(color.getR(), color.getG(), color.getB());
 

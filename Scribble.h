@@ -39,6 +39,9 @@ public:
 
     void setColor(Color color) {
         this->color = color;
+        for(int i = 0; i <pCounter; i++) {
+            points[i].setColor(color);            
+        }
     }
 
     void addPoint(float x, float y, Color color) {

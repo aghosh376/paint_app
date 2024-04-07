@@ -24,6 +24,12 @@ struct Controller : public AppController {
             if (toolbar.getSelectedTool() == CLEAR){
                 canvas.clearShapeCounter();
             }
+            if (toolbar.getSendBack() || toolbar.getSendFront()) {
+                canvas.changeShapeLayer(toolbar.getSendBack(), toolbar.getSendFront());
+                toolbar.deselectSendBack();
+                toolbar.deselectSendFront();
+            }
+
         } else if (canvas.contains(x, y)){
             canvas.handleMouseClick(x, y, toolbar.getSelectedTool(), colorPicker.getCurrentColor());
         } else if (colorPicker.contains(x, y)){
@@ -48,6 +54,7 @@ struct Controller : public AppController {
         
         colorPicker.handleMouseUp(x, y);
         //canvas.handleMouseUp(x, y, toolbar.getSelectedTool(), colorPicker.getCurrentColor());
+
     }
 
     void render(){

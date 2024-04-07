@@ -73,13 +73,16 @@ public:
             for (int i = shapeCounter-1; i >= 0; i--){
                 if (shapes[i]->contains(x, y)){
                     std::cout << "select" << std::endl;
-                    Shape* temp = shapes[i];
+                    /*Shape* temp = shapes[i];
                     for(int j = i; j < shapeCounter - 1; j++) {
                         shapes[j] = shapes[j+1];
                     }
-                    shapes[shapeCounter-1] = temp;
-                    shapes[shapeCounter-1]->select();
                     selectedShape = shapeCounter-1;
+                    shapes[selectedShape] = temp;
+                    shapes[selectedShape]->select();
+                    */
+                    selectedShape = i;
+                    shapes[selectedShape]->select();
                     offsetX = x - shapes[selectedShape]->getX();
                     offsetY = shapes[selectedShape]->getY() - y;
                     break;
@@ -99,6 +102,22 @@ public:
             shapeCounter++;
         } else if (tool == CLEAR) {
             clearShapeCounter();
+        }
+    }
+
+    void changeShapeLayer(bool sendBack, bool sendFront) {
+        if (selectedShape != -1) {
+            if (sendFront && selectedShape != shapeCounter - 1) {
+                Shape* temp = shapes[selectedShape];
+                shapes[selectedShape] = shapes[selectedShape + 1];
+                shapes[selectedShape + 1] = temp;
+                selectedShape++;
+            } else if (sendBack && selectedShape != 0) {
+                Shape* temp = shapes[selectedShape];
+                shapes[selectedShape] = shapes[selectedShape - 1];
+                shapes[selectedShape - 1] = temp;
+                selectedShape--;
+            }
         }
     }
 
